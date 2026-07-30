@@ -1,0 +1,7 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Phone Finder backend scaffolding",
+  "main": "server.js",
+  "private": true
+}
