@@ -1,11 +1,4 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "Phone Finder backend scaffolding",
-  "main": "server.js",
-  "private": true
-}
-{
   "name": "phone-parts-finder-backend",
   "version": "1.0.0",
   "description": "Backend API skeleton for Phone Parts Finder project",
