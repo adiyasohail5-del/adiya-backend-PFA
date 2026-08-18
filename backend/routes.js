@@ -17,16 +17,16 @@ const searchController = require('./controllers/searchController');
 
 const router = express.Router();
 
-// =========================================================================
+
 // 1. Authentication Routes (/api/auth)
-// =========================================================================
+
 router.post('/auth/register/customer', authController.registerCustomer);
 router.post('/auth/register/vendor', authController.registerVendor);
 router.post('/auth/login', authController.login);
 
-// =========================================================================
+
 // 2. Vendor Routes (/api/vendor)
-// =========================================================================
+
 // Apply auth and vendor role checks across all vendor endpoints
 router.get('/vendor/profile', verifyToken, authorizeRoles('vendor'), vendorController.getMyProfile);
 router.put('/vendor/profile', verifyToken, authorizeRoles('vendor'), vendorController.updateMyProfile);
@@ -54,15 +54,15 @@ router.put('/vendor/requests/:id/respond', verifyToken, authorizeRoles('vendor')
 router.get('/vendor/commissions', verifyToken, authorizeRoles('vendor'), commissionController.getMyCommissions);
 router.post('/vendor/commissions/:id/proof', verifyToken, authorizeRoles('vendor'), commissionController.uploadProof);
 
-// =========================================================================
+
 // 3. Parts Routes (/api/parts)
-// =========================================================================
+
 router.get('/parts/search', searchController.searchParts);
 router.get('/parts/:id', partController.getPartDetails);
 
-// =========================================================================
+
 // 4. Category/Brand Routes (/api/categories)
-// =========================================================================
+
 // Public dropdown routes
 router.get('/categories/brands', categoryController.getBrands);
 router.get('/categories/part-types', categoryController.getPartTypes);
@@ -76,9 +76,9 @@ router.post('/categories/part-types', verifyToken, authorizeRoles('admin'), cate
 router.put('/categories/part-types/:id', verifyToken, authorizeRoles('admin'), categoryController.updatePartType);
 router.delete('/categories/part-types/:id', verifyToken, authorizeRoles('admin'), categoryController.deletePartType);
 
-// =========================================================================
+
 // 5. Customer Routes (/api/customer)
-// =========================================================================
+
 // Public review details check
 router.get('/customer/vendors/:vendorId/reviews', reviewController.getVendorReviews);
 
@@ -90,9 +90,9 @@ router.get('/customer/requests', verifyToken, authorizeRoles('customer'), reques
 router.post('/customer/verify-delivery', verifyToken, authorizeRoles('customer'), requestController.verifyDelivery);
 router.post('/customer/reviews', verifyToken, authorizeRoles('customer'), reviewController.addReview);
 
-// =========================================================================
+
 // 6. Admin Routes (/api/admin)
-// =========================================================================
+
 // Require admin checks across all endpoints here
 router.get('/admin/vendors', verifyToken, authorizeRoles('admin'), adminController.getAllVendors);
 router.put('/admin/vendors/:id/approve', verifyToken, authorizeRoles('admin'), adminController.approveVendor);
@@ -112,23 +112,22 @@ router.get('/admin/reports', verifyToken, authorizeRoles('admin'), reportControl
 router.put('/admin/reports/:id/resolve', verifyToken, authorizeRoles('admin'), reportController.resolveReport);
 router.put('/admin/reports/:id/dismiss', verifyToken, authorizeRoles('admin'), reportController.dismissReport);
 
-// =========================================================================
+
 // 7. Notification Routes (/api/notifications)
-// =========================================================================
+
 router.get('/notifications', verifyToken, notificationController.getMyNotifications);
 router.get('/notifications/unread-count', verifyToken, notificationController.getUnreadCount);
 router.put('/notifications/read-all', verifyToken, notificationController.markAllAsRead);
 router.put('/notifications/:id/read', verifyToken, notificationController.markAsRead);
 
-// =========================================================================
+
 // 8. Report Routes (/api/reports)
-// =========================================================================
+
 router.post('/reports', verifyToken, reportController.submitReport);
 router.get('/reports/my', verifyToken, reportController.getMyReports);
 
-// =========================================================================
 // 9. Chat Routes (/api/chat)
-// =========================================================================
+
 const chatController = require('./controllers/chatController');
 router.post('/chat/rooms', verifyToken, chatController.createOrGetRoom);
 router.get('/chat/rooms', verifyToken, chatController.getMyRooms);
